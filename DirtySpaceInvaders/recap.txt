@@ -1,5 +1,33 @@
 Exemple
 
-Problème : J'ai faim
-Cause : Je n'ai pas mangé
-Solution : Je mange
+Problème : ça crashait direct 
+Cause : world.controllerInput était Null
+Solution : le référencer dans main.cpp
+
+Problème : Les aliens spawnaient mal
+Cause : dans main, leur x était override par la valeur censé aller en y
+Solution : bah inverser 
+
+Probleme : Crashs aleatoires pendant la world update
+Cause : des fois il update des gameobject qui vennait de se faire delete
+Solution : check si ils sont en vie avant d'update
+
+Probleme : Comparaisons de type cassees avec playerLaser et AlienLaser
+Cause : C'est case sensitive et il manquait une majuscule
+Solution : la remettre
+
+Problème : Les colliions des lasers marchent pas
+Cause : ya rien dans l'update mdr
+Solution : remettre la logique dans l'update des lasers
+
+Probleme : Erreur memoire sur des GO
+Cause : m_objType était delete sauvagement 
+Solution : on mets delete[] et pas l'object
+
+Probleme : Plantage quand le joueur est deja detruit
+Cause : `Alien.cpp` et `AlienLaser.cpp` dereferencaient le pointeur joueur sans verifier `nullptr`.
+Solution : Ajout des verifications `player != nullptr` avant acces a `player->pos`.
+
+Problème : le jeu se ferme pas quand le joueur meurt
+Cause : rien lui dis de le faire 
+Solution : Mettre un gros exit(0) quand je joueur die 

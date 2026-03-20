@@ -26,9 +26,29 @@ void PlayerLaser::Update(PlayField& world)
 		deleted = true;
 	}
 
+	if (!deleted)
+	{
+		for (GameObject* obj : world.GameObjects())
+		{
+			if (obj == this)
+			{
+				continue;
+			}
+
+			if (strcmp(obj->m_objType, "AlienShip") == 0 && pos.IntCmp(obj->pos))
+			{
+				deleted = true;
+				if (obj->DecreaseHealth())
+				{
+					world.RemoveObject(obj);
+				}
+				break;
+			}
+		}
+	}
+
 	if (deleted)
 	{
 		world.DespawnLaser(this);
-		delete this;
 	}
 }

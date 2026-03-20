@@ -1,5 +1,6 @@
 #include "Alien.h"
 #include "ConsoleRenderer.h"
+#include "Input.h"
 #include "PlayerShip.h"
 #include "PlayField.h"
 #include "Random.h"
@@ -16,6 +17,8 @@ int main()
 	Vector2D size(80, 28);
 	Renderer consoleRenderer(size);
 	PlayField world(size);
+	RndInput input;
+	world.controllerInput = &input;
 
 	intRand xCoord(0, (int)size.x- 1);
 	intRand yCoord(0, 10);
@@ -25,7 +28,7 @@ int main()
 	{
 		Alien& a = *(new Alien);
 		a.pos.x = (float)xCoord(rGen);
-		a.pos.x = (float)yCoord(rGen);
+		a.pos.y = (float)yCoord(rGen);
 		world.AddObject(&a);
 	}
 

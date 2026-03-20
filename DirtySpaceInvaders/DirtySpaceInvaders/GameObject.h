@@ -11,6 +11,7 @@ public:
 	Vector2D pos;
 	unsigned char sprite;
 
-	virtual void Update(PlayField& world) {};
-	bool DecreaseHealth() { return true; };
+	virtual ~GameObject() = default;
+	virtual void Update(PlayField& world) {}
+	virtual bool DecreaseHealth() { return true; }
 };

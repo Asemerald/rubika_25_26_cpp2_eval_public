@@ -2,18 +2,23 @@
 
 #include "GameObject.h"
 
+
 void PlayField::Update()
 {
-	// Update list of active objects in the world
-	for (auto it : gameObjects)
+	std::vector<GameObject*> objectsSnapshot = gameObjects;
+	for (GameObject* obj : objectsSnapshot)
 	{
-		it->Update(*this);
+		auto stillAlive = std::find(gameObjects.begin(), gameObjects.end(), obj);
+		if (stillAlive != gameObjects.end())
+		{
+			obj->Update(*this);
+		}
 	}
 }
 
 GameObject* PlayField::GetPlayerObject()
 {
-	auto it = std::find_if(gameObjects.begin(), gameObjects.end(), [](GameObject* in) { return (strcmp(in->m_objType, "playerShip") == 0); });
+	auto it = std::find_if(gameObjects.begin(), gameObjects.end(), [](GameObject* in) { return (strcmp(in->m_objType, "PlayerShip") == 0); });
 	if (it != gameObjects.end())
 		return (*it);
 	else
@@ -22,7 +27,7 @@ GameObject* PlayField::GetPlayerObject()
 
 void PlayField::SpawnLaser(GameObject* newObj)
 {
-	if (strcmp(newObj->m_objType, "alienLaser") == 0)
+	if (strcmp(newObj->m_objType, "AlienLaser") == 0)
 		AlienLasers--;
 
 	else if (strcmp(newObj->m_objType, "PlayerLaser") == 0)

@@ -16,7 +16,7 @@ Alien::Alien()
 
 Alien::~Alien()
 {
-	delete m_objType;
+	delete[] m_objType;
 }
 
 bool Alien::DecreaseHealth()
@@ -40,7 +40,7 @@ void Alien::Update(PlayField& world)
 	{
 		// kill player
 		GameObject* player = world.GetPlayerObject();
-		if (pos.IntCmp(player->pos))
+		if (player != nullptr && pos.IntCmp(player->pos))
 		{
 			world.RemoveObject(player);
 		}
